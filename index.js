@@ -2,7 +2,6 @@ const generatePage = require('./src/page-template');
 const Manager = require('./lib/Manager')
 const Engineer = require('./lib/Engineer')
 const Intern = require('./lib/Intern')
-const { writeFile, copyFile } = require('./Utils/generate-site');
 
 
 const inquirer = require('inquirer');
@@ -36,10 +35,10 @@ const teamManager = () => {
     ])
         .then(managerInput => {
             const { name, id, email, officNumber } = managerInput;
-            const manager = new Manager(name, id, email, officNumber);
+            const manager = new Manager (name, id, email, officNumber);
 
             teamArry.push(manager);
-            // console.log(manager)
+            // console.log(manager.getRole())
         })
 }
 
@@ -113,24 +112,25 @@ const employeeMenu = () => {
         }
     ])
         .then(employeeData => {
-            let { name, id, email, github, school } = employeeData;
+            let { name, id, email, github, school, role, addEmployee } = employeeData;
             let employee;
 
-            if (employeeData.role === 'Engineer') {
-                employee = new Engineer(name, id, email, github)
+            if (role === 'Engineer') {
+                employee = new Engineer (name, id, email, github)
 
                 // console.log(employee)
-            } else if (employeeData.role === 'Intern') {
+            } else if (role === 'Intern') {
 
-                employee = new Intern(name, id, email, school)
+                employee = new Intern (name, id, email, school)
 
                 // console.log(employee)
             }
 
             teamArry.push(employee);
 
-            if (employeeData.addEmployee === true) {
-                return employeeMenu(teamArry)
+            if (addEmployee === true) {
+                return employeeMenu()
+
             } else {
                 return teamArry;
             }
@@ -139,22 +139,25 @@ const employeeMenu = () => {
         })
 }
 
+const writeFile = fileContent => {
+    fs.writeFile('./dist/employeePage.html', fileContent, err => {
+        if (err) {
+            console.log(err);
+            return;
+        } else {
+            console.log('success')
+        }
+    })
+}
+
 teamManager()
     .then(employeeMenu)
     .then(teamArry => {
-        //console.log(teamArry);
+        // console.log(teamArry[0].getRole());
         return generatePage(teamArry);
     })
     .then(pageHTML => {
-        console.log(pageHTML)
         return writeFile(pageHTML);
-    })
-    .then(writeFileRes => {
-        console.log(writeFileRes);
-        return copyFile();
-    })
-    .then(copyFileRes => {
-        console.log(copyFileRes)
     })
     .catch(err => {
         console.log(err);
