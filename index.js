@@ -140,7 +140,7 @@ const employeeMenu = () => {
 }
 
 const writeFile = fileContent => {
-    fs.writeFile('./dist/employeePage.html', fileContent, err => {
+    fs.writeFileSync('./dist/employeePage.html', fileContent, err => {
         if (err) {
             console.log(err);
             return;
@@ -153,7 +153,7 @@ const writeFile = fileContent => {
 teamManager()
     .then(employeeMenu)
     .then(teamArry => {
-        // console.log(teamArry[0].getRole());
+        // console.log(teamArry);
         return generatePage(teamArry);
     })
     .then(pageHTML => {
