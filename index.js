@@ -30,7 +30,7 @@ const teamManager = () => {
         {
             type: 'input',
             name: 'officNumber',
-            message: 'What is the Offic Number of the Team Manager?',
+            message: 'What is the Office Number of the Team Manager?',
         }
     ])
         .then(managerInput => {
@@ -38,7 +38,6 @@ const teamManager = () => {
             const manager = new Manager (name, id, email, officNumber);
 
             teamArry.push(manager);
-            console.log(manager.getRole())
         })
 }
 
@@ -129,18 +128,18 @@ const employeeMenu = () => {
             teamArry.push(employee);
 
             if (addEmployee === true) {
-                return employeeMenu()
+                return employeeMenu(teamArry)
 
             } else {
                 return teamArry;
             }
 
-            // console.log(employeeData);
+            console.log(employeeData);
         })
 }
 
 const writeFile = fileContent => {
-    fs.writeFile('./dist/employeePage.html', fileContent, err => {
+    fs.writeFileSync('./dist/employeePage.html', fileContent, err => {
         if (err) {
             console.log(err);
             return;
@@ -153,6 +152,7 @@ const writeFile = fileContent => {
 teamManager()
     .then(employeeMenu)
     .then(teamArry => {
+        console.log(teamArry)
         return generatePage(teamArry);
     })
     .then(pageHTML => {

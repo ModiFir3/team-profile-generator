@@ -1,52 +1,54 @@
 const generateManager = Manager => {
   return `
-  <div class="container col-3">
+  <div class=" col-3">
     <div class="bg-info">
-      <h2 class="">${Manager.name}</h2>
+      <h2 class=""> ${Manager.name}</h2>
       <h3>Manager</h3>
     </div>
     <div class="bg-light p">
       <p>ID:${Manager.id}</p>
-      <p>Email:<a href="${Manager.email}">${Manager.email}</a></p>
-      <p>Office number:${Manager.officeNumber}</p>
-    </div>`
+      <p>Email:<a href="mailto:${Manager.email}"> ${Manager.email}</a></p>
+      <p>Office number: ${Manager.officeNumber}</p>
+    </div>
+  </div>`
 }
 
 const generateEngineer = Engineer => {
   return `
-  <div class="container col-3">
+  <div class=" col-3">
     <div class="bg-info">
-      <h2 class="">${Engineer.name}</h2>
+      <h2 class=""> ${Engineer.name}</h2>
       <h3>Engineer</h3>
     </div>
-    <div class="bg-light p">
+    <div class="bg-light">
       <p>ID:${Engineer.id}</p>
-      <p>Email:<a href="${Engineer.email}">${Engineer.email}</a></p>
-      <p>GitHub:<a href="${Engineer.github}">${Engineer.github}</a></p>
-    </div>`
+      <p>Email:<a href="mailto:${Engineer.email}"> ${Engineer.email}</a></p>
+      <p>Github:<a href="${Engineer.github}"> ${Engineer.github}</a></p>
+    </div>
+  </div>`
 }
 
 const generateIntern = Intern => {
   return `
-  <div class="container col-3">
+  <div class=" col-3">
     <div class="bg-info">
       <h2 class="">${Intern.name}</h2>
       <h3>Intern</h3>
     </div>
     <div class="bg-light p">
-      <p>ID:${Intern.id}</p>
-      <p>Email:<a href="${Intern.email}">${Intern.email}</a></p>
-      <p>Office number:${Intern.school}</p>
-    </div>`
+      <p>ID: ${Intern.id}</p>
+      <p>Email:<a href="mailto:${Intern.email}"> ${Intern.email}</a></p>
+      <p>School: ${Intern.school}</p>
+    </div>
+  </div>`
 }
 
 const generatePage = data => {
   pageArray = [];
-
-  for (let i = 0; i < data.length; i++) {
+  
+  for (let i = 0; i < data.length - 1; i++) {
     let employee = data[i];
     let role = employee.getRole();
-    console.log(role)
     
     if (role === 'Manager') {
       const managerCard = generateManager(employee);
@@ -71,9 +73,10 @@ const generatePage = data => {
 
   // joining strings 
   const employeeCards = pageArray.join('')
-  
+
   // return to generated page
-  return generateHTML(employeeCards);
+  const generateTeam = generateHTML(employeeCards);
+  return generateTeam;
 }
 
 const generateHTML = employeeCards => {
@@ -91,12 +94,14 @@ const generateHTML = employeeCards => {
  
     <body>
       <header>
-      <h1 class="bg-danger d-flex justify-content-center">My Team</h1>
+        <h1 class="bg-danger d-flex justify-content-center p-3">My Team</h1>
       </header>
       <main>
-      <section class='employee-card'>
-      ${employeeCards}
-      </section>
+        <section class='employee-card container-fluid'>
+          <div class="row d-flex justify-content-center gap-2">
+            ${employeeCards}
+          </div>
+        </section>
       </main>
       <footer>
       </footer>
