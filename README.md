@@ -16,11 +16,11 @@
   
   # Installation
 
-  If you would like to use this application you will first need to to clone or download it. Once its on your local machine you will need to open your terminal and run -npm install.
+  If you would like to use this application you will first need to to clone or download it. Once its on your local machine you will need to open your terminal and run -npm install to download all the necessary files for the application to work.
 
   # Usage
 
-  Once you have all the ncessary filesOnce all the files have been downloaded all you have to do is run in the termial -node index.js. That will start the application and all you have to do is follow the prompts and you will have a team profile genereated for you once your finished.
+  Once you have all the necessary filesOnce all the files have been downloaded all you have to do is run in the termial -node index.js. That will start the application and all you have to do is follow the prompts and you will have a team profile genereated for you once your finished.
 
   # License
 
