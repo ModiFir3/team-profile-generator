@@ -22,7 +22,7 @@ const generateEngineer = Engineer => {
     <div class="bg-light p">
       <p>ID:${Engineer.id}</p>
       <p>Email:<a href="${Engineer.email}">${Engineer.email}</a></p>
-      <p>Office number:${Engineer.officeNumber}</p>
+      <p>GitHub:<a href="${Engineer.github}">${Engineer.github}</a></p>
     </div>`
 }
 
@@ -36,35 +36,34 @@ const generateIntern = Intern => {
     <div class="bg-light p">
       <p>ID:${Intern.id}</p>
       <p>Email:<a href="${Intern.email}">${Intern.email}</a></p>
-      <p>Office number:${Intern.officeNumber}</p>
+      <p>Office number:${Intern.school}</p>
     </div>`
 }
 
 const generatePage = data => {
-  // console.log(data)
-  // console.log(data[0].getRole())
   pageArray = [];
 
   for (let i = 0; i < data.length; i++) {
-    let employee = data[i]
-    console.log(employee)
+    let employee = data[i];
+    let role = employee.getRole();
+    console.log(role)
     
-    if (data[i].getRole() === 'Manager') {
-      const managerCard = generateManager(data[i]);
+    if (role === 'Manager') {
+      const managerCard = generateManager(employee);
 
       pageArray.push(managerCard);
     }
 
     // call engineer function
-    if (data[i].getRole() === 'Engineer') {
-      const engineerCard = generateEngineer(data[i]);
+    if (role === 'Engineer') {
+      const engineerCard = generateEngineer(employee);
 
       pageArray.push(engineerCard);
     }
 
     // call intern function 
-    if (data[i].getRole() === 'Intern') {
-      const internCard = generateIntern(data[i]);
+    if (role === 'Intern') {
+      const internCard = generateIntern(employee);
 
       pageArray.push(internCard);
     }
@@ -72,35 +71,37 @@ const generatePage = data => {
 
   // joining strings 
   const employeeCards = pageArray.join('')
-
+  
   // return to generated page
-  const generateTeam = generatePage(employeeCards);
-  return generateTeam;
+  return generateHTML(employeeCards);
+}
 
+const generateHTML = employeeCards => {
   return `
- <!DOCTYPE html>
- <html lang="en">
-   <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-     <title>Team Profile Generator</title>
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-     <link rel="stylesheet" href="style.css">
-   </head>
-
-   <body>
-     <header>
-     <h1 class="bg-danger d-flex justify-content-center">My Team</h1>
-     </header>
-     <main>
-     <section class='employee-card'>
-     </section>
-     </main>
-     <footer>
-     </footer>
-   </body>
- </html>`
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Team Profile Generator</title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+      <link rel="stylesheet" href="style.css">
+    </head>
+ 
+    <body>
+      <header>
+      <h1 class="bg-danger d-flex justify-content-center">My Team</h1>
+      </header>
+      <main>
+      <section class='employee-card'>
+      ${employeeCards}
+      </section>
+      </main>
+      <footer>
+      </footer>
+    </body>
+  </html>`
 }
 
 module.exports = generatePage;

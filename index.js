@@ -38,7 +38,7 @@ const teamManager = () => {
             const manager = new Manager (name, id, email, officNumber);
 
             teamArry.push(manager);
-            // console.log(manager.getRole())
+            console.log(manager.getRole())
         })
 }
 
@@ -140,7 +140,7 @@ const employeeMenu = () => {
 }
 
 const writeFile = fileContent => {
-    fs.writeFileSync('./dist/employeePage.html', fileContent, err => {
+    fs.writeFile('./dist/employeePage.html', fileContent, err => {
         if (err) {
             console.log(err);
             return;
@@ -153,7 +153,6 @@ const writeFile = fileContent => {
 teamManager()
     .then(employeeMenu)
     .then(teamArry => {
-        // console.log(teamArry);
         return generatePage(teamArry);
     })
     .then(pageHTML => {
