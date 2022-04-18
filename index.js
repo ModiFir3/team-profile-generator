@@ -15,22 +15,53 @@ const teamManager = () => {
             type: 'input',
             name: 'name',
             message: 'What is the name of the of the Team Manager?',
-            //dont forget to validate they must have a team manager
+            validate: nameInput => {
+                if (nameInput) {
+                    return true;
+                } else {
+                    console.log('Please Enter a Manager Name!')
+                    return false;
+                }
+            }
         },
         {
             type: 'input',
             name: 'id',
             message: 'What is the ID of the Team Manager',
+            validate: idInput => {
+                if (idInput) {
+                    return true;
+                } else {
+                    console.log('Please enter Manger ID url!')
+                    return false;
+                }
+            }
         },
         {
             type: 'input',
             name: 'email',
             message: 'What is the Team Manager email?',
+            validate: emailInput => {
+                if (emailInput) {
+                    return true;
+                } else {
+                    console.log('Please enter Managers email!')
+                    return false;
+                }
+            }
         },
         {
             type: 'input',
             name: 'officNumber',
             message: 'What is the Office Number of the Team Manager?',
+            validate: validateInput => {
+                if (validateInput) {
+                    return true;
+                } else {
+                    console.log('Please enter Managers Office Number!')
+                    return false;
+                }
+            }
         }
     ])
         .then(managerInput => {
@@ -58,6 +89,14 @@ const employeeMenu = () => {
                 } else {
                     return false
                 }
+            },
+            validate: eName => {
+                if (eName) {
+                    return true;
+                } else {
+                    console.log('Please enter Employee Name!')
+                    return false;
+                }
             }
         },
         {
@@ -70,6 +109,14 @@ const employeeMenu = () => {
                 } else {
                     return false
                 }
+            },
+            validate: eId => {
+                if (eId) {
+                    return true;
+                } else {
+                    console.log('Please enter Employee ID!')
+                    return false;
+                }
             }
         },
         {
@@ -81,6 +128,14 @@ const employeeMenu = () => {
                     return true
                 } else {
                     return false
+                }
+            },
+            validate: eEmail => {
+                if (eEmail) {
+                    return true;
+                } else {
+                    console.log('Please enter Employee email!')
+                    return false;
                 }
             }
         },
@@ -95,6 +150,14 @@ const employeeMenu = () => {
                 } else {
                     return false
                 }
+            },
+            validate: eRole => {
+                if (eRole) {
+                    return true;
+                } else {
+                    console.log('Please Enter the Employees Role!')
+                    return false;
+                }
             }
         },
         {
@@ -102,12 +165,28 @@ const employeeMenu = () => {
             name: 'github',
             message: 'What is the GitHub of the employee? ',
             when: (input) => input.role === "Engineer",
+            validate: githubInput => {
+                if (githubInput) {
+                    return true;
+                } else {
+                    console.log('Please enter Engineers Github!')
+                    return false;
+                }
+            }
         },
         {
             type: 'input',
             name: 'school',
             message: 'What school is the Intern attending?',
-            when: (input) => input.role === "Intern"
+            when: (input) => input.role === "Intern",
+            validate: schoolInput => {
+                if (schoolInput) {
+                    return true;
+                } else {
+                    console.log('Please enter Interns School!')
+                    return false;
+                }
+            }
         }
     ])
         .then(employeeData => {
